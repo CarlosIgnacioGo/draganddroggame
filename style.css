@@ -28,6 +28,10 @@ body {
   .color-white{
     color: white;
   }
+
+  .mt-5rem{
+    margin-top: 7rem !important;
+  }
       
   #cardPile div {
     width: 55px;
