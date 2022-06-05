@@ -1,0 +1,117 @@
+/* Add some margin to the page and set a default font and colour */
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+    background-image: url(https://pumaprende.cl/app/bg_desierto);
+    margin: 30px;
+    font-family: "Georgia", serif;
+    line-height: 1.8em;
+    color: #333;
+  }
+   
+  /* Give headings their own font */
+   
+  h1, h2, h3, h4 {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
+
+  .bg-red{
+    background-color: #e73750 !important;
+  }
+
+  .bg-orange{
+    background-color: #f38d27 !important;
+  }
+
+  .color-white{
+    color: white;
+  }
+      
+  #cardPile div {
+    width: 55px;
+    border: 2px solid #333;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 10px 0 0 10px;
+    background: #fff;
+  }
+
+  #cardSlots div{
+    float: left;
+    font-size: 35px;
+    width: 49%;
+    height: 18%;
+    padding: .85em;
+    border: 2px solid #333;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #fff;
+    margin: 5px;
+  }
+
+  @media (max-width: 1200px) {
+    #cardSlots div{
+      width: 100%;
+    }
+  }
+
+  #cardSlots > div > section > span {
+    float: left;
+    width: 55px;
+    height: 18%;
+    border: 2px dashed #333;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 8px 7px 0 10px;
+    background: #fff;
+    padding: 18px 25px;
+  }
+
+  #cardSlots > div > img {
+    width: 100px;
+    height: 100px;
+  }
+   
+  /*#cardSlots div:first-child, #cardPile div:first-child {
+    margin-left: 0;
+  }*/
+   
+  #cardSlots div.hovered {
+    background: #aaa;
+  }
+   
+  #cardSlots div {
+    border-style: solid;
+  }
+   
+  #cardPile div {
+    background: #666;
+    color: #fff;
+    font-size: 1em;
+    text-shadow: 0 0 3px #000;
+    text-align: center;
+  }
+   
+  #cardPile div.ui-draggable-dragging {
+    -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+    box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  }
+   
+  /* Individually coloured cards */
+   
+  #card1.correct { background: red; }
+  #card2.correct { background: brown; }
+  #card3.correct { background: orange; }
+  #card4.correct { background: yellow; }
+  #card5.correct { background: green; }
+  #card6.correct { background: cyan; }
+  #card7.correct { background: blue; }
+  #card8.correct { background: indigo; }
+  #card9.correct { background: purple; }
+  #card10.correct { background: violet; }

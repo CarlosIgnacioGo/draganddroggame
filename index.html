@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<title></title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="style.css">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+var correctCards = 0;
+$( init );
+
+function init() {
+  $('#successMessage').hide();
+  $('#successMessage').css( {
+    left: '580px',
+    top: '250px',
+    width: 0,
+    height: 0
+  } );
+
+  // Reset the game
+  correctCards = 0;
+  $('#cardPile').html( '' );
+  $('#cardSlots').html( '' );
+
+  var numbers = [ 1, 2, 3, 4, 5 ];
+  var terms = ['mu', 'mo', 'ma', 'mi', 'me'];
+  var words = [ 'la', 'no', 'palo', 'el', 'lón'];
+  var imgs = [ 
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Momo_260905.jpg/1200px-Momo_260905.jpg', 
+    'https://www.nationalgeographic.com.es/medio/2018/02/27/monos__1280x720.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9Qt3L1NUM2dCF8Ei3rLqEYySs8C5jBM_WRA&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbba_qbI8ROWw-5PxZy5jYAM7vJRThWZT0oKiJmb2_VOqzxIqrj9er3Xp-3OFTr-5mJM&usqp=CAU',
+    'https://encolombia.com/wp-content/uploads/2021/04/Beneficios-del-Melon.jpg'
+  ];
+  
+  //numbers.sort( function() { return Math.random() - .5 } );
+
+  for ( var i=0; i<5; i++ ) {
+    $('<div class="btn btn-success">' + terms[i] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+      
+      stack: '#cardPile div',
+      cursor: 'move',
+      revert: true
+    } );
+  }
+
+  for ( var i=1; i<=5; i++ ) {
+    $('<div class="d-flex justify-content-around col-md-6">' + 
+        '<section class="d-flex justify-content-center align-self-center">' + 
+          '<span>'+ '</span>' + 
+          '<p>'+ words[i-1] +'</p>' +  
+        '</section>' +
+        '<img src="'+ imgs[i-1]+'" class="shadow rounded shadow-lg">' + 
+      '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );
+  }
+
+}
+
+function handleCardDrop( event, ui ) {
+  var slotNumber = $(this).data( 'number' );
+  var cardNumber = ui.draggable.data( 'number' );
+  console.log(slotNumber)
+  console.log(cardNumber)
+
+  if ( slotNumber == cardNumber ) {
+    ui.draggable.addClass( 'correct' );
+    ui.draggable.draggable( 'disable' );
+    $(this).droppable( 'disable' );
+    console.log($(this).find("span"))
+    ui.draggable.position( { of: $(this).find("span"), my: 'left top', at: 'left top' } );
+    ui.draggable.draggable( 'option', 'revert', false );
+    correctCards++;
+  } 
+  
+  if ( correctCards == 5 ) {
+    $('#exampleModal').modal('show');
+  }
+
+}
+
+</script>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="card text-center bg-red">
+      <div class="card-body d-flex flex-column ">
+        <h4 class="card-title color-white fw-bold">Une la silába con su palabra correspondiente</h4>
+        <div id="cardPile" class="col-md-12 d-flex justify-content-center"> </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="card text-center bg-orange">
+      <div class="card-body">
+        <div id="cardSlots" class="col-md-12"> </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Felicitaciones 🎉</h5>
+        </div>
+        <div class="modal-footer">
+          <button onclick="init()" data-bs-dismiss="modal" type="button" class="btn btn-primary">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
