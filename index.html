@@ -33,6 +33,7 @@ function init() {
   var numbers = [ 1, 2, 3, 4, 5 ];
   var terms = ['mu', 'mo', 'ma', 'mi', 'me'];
   var words = [ 'la', 'no', 'palo', 'el', 'lón'];
+  var position = [ 'left', 'left', 'right', 'left', 'left'];
   var imgs = [ 
     'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Momo_260905.jpg/1200px-Momo_260905.jpg', 
     'https://www.nationalgeographic.com.es/medio/2018/02/27/monos__1280x720.jpg',
@@ -53,13 +54,15 @@ function init() {
   }
 
   for ( var i=1; i<=5; i++ ) {
-    $('<div class="d-flex justify-content-around col-md-6">' + 
-        '<section class="d-flex justify-content-center align-self-center">' + 
-          '<span>'+ '</span>' + 
-          '<p>'+ words[i-1] +'</p>' +  
-        '</section>' +
-        '<img src="'+ imgs[i-1]+'" class="shadow rounded shadow-lg">' + 
-      '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+    html =  '<div class="d-flex justify-content-around col-md-6">' + 
+              '<section class="d-flex justify-content-center align-self-center">' + 
+                ( position[i-1] == 'left' ? '<span>' + '</span>' : "" )
+                + '<p>'+ words[i-1] +'</p>' +  
+                ( position[i-1] == 'right' ? '<span>' + '</span>' : "" )
+              + '</section>' +
+              '<img src="'+ imgs[i-1]+'" class="shadow rounded shadow-lg">' + 
+            '</div>'
+    $(html).data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
       accept: '#cardPile div',
       hoverClass: 'hovered',
       drop: handleCardDrop
